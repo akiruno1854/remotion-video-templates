@@ -1,0 +1,45 @@
+name: Render
+
+# Renders one composition on every push and uploads the MP4 as a build
+# artifact. This is also the fastest smoke test that the whole pack still
+# bundles and renders after a change.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      composition:
+        description: Composition id to render
+        default: LogoIntro
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Remotion needs a Chromium build to render. This downloads the pinned
+      # Chrome Headless Shell into the runner so `render` has a browser.
+      - name: Ensure browser
+        run: npx remotion browser ensure
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Render composition
+        run: npx remotion render ${{ github.event.inputs.composition || 'LogoIntro' }} out/video.mp4
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-video
+          path: out/video.mp4
