@@ -1,0 +1,17 @@
+{
+  "id": "aws-serverless",
+  "title": "API Gateway + Lambda + DynamoDB",
+  "subtitle": "サーバーレスなAPI処理の基本フロー",
+  "direction": "DOWN",
+  "nodes": [
+    {"id": "user", "label": "ユーザー", "subtitle": "Client / App", "type": "actor"},
+    {"id": "apigw", "label": "API Gateway", "subtitle": "HTTP Endpoint", "type": "gateway"},
+    {"id": "lambda", "label": "Lambda", "subtitle": "Business Logic", "type": "compute"},
+    {"id": "dynamodb", "label": "DynamoDB", "subtitle": "Key-Value Store", "type": "database"}
+  ],
+  "edges": [
+    {"id": "e-user-apigw", "source": "user", "target": "apigw", "label": "HTTP Request"},
+    {"id": "e-apigw-lambda", "source": "apigw", "target": "lambda", "label": "Invoke"},
+    {"id": "e-lambda-dynamodb", "source": "lambda", "target": "dynamodb", "label": "Read / Write"}
+  ]
+}
