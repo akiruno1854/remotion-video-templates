@@ -35,6 +35,7 @@ jobs:
           tar xzf piper.tar.gz
           chmod +x piper/bin/piper
           echo "PIPER_PLUS_BIN=$PWD/piper/bin/piper" >> "$GITHUB_ENV"
+          echo "LD_LIBRARY_PATH=$PWD/piper/lib:${LD_LIBRARY_PATH:-}" >> "$GITHUB_ENV"
 
       - name: Download Japanese voice model
         run: |
