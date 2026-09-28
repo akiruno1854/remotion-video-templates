@@ -10,38 +10,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-
       - name: Install dependencies
         run: npm install
-
       - name: Generate ELK layouts
         run: npm run diagram:layout
-
       - name: Ensure browser
         run: npx remotion browser ensure
-
       - name: Typecheck
         run: npm run typecheck
-
-      - name: Render RAG basic still
-        run: npx remotion still ArchitectureDiagramStill out/rag-basic.png
-
-      - name: Render AWS serverless still
-        run: npx remotion still AwsServerlessStill out/aws-serverless.png
-
-      - name: Render RAG system still
-        run: npx remotion still RagSystemStill out/rag-system.png
-
-      - name: Upload diagram artifacts
+      - name: Render diagram stills
+        run: |
+          mkdir -p out
+          npx remotion still ArchitectureDiagramStill out/rag-basic.png
+          npx remotion still AwsServerlessStill out/aws-serverless.png
+          npx remotion still RagSystemStill out/rag-system.png
+      - name: Render scene library stills
+        run: |
+          npx remotion still TerminalPanelStill out/terminal-panel.png
+          npx remotion still DirectoryTreeStill out/directory-tree.png
+          npx remotion still GitTreeStill out/git-tree.png
+          npx remotion still MetricDashboardStill out/metric-dashboard.png
+          npx remotion still ComparisonTableStill out/comparison-table.png
+      - name: Upload still artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: diagram-stills
-          path: |
-            out/rag-basic.png
-            out/aws-serverless.png
-            out/rag-system.png
+          name: technical-scene-stills
+          path: out/*.png
