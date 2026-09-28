@@ -1,31 +1,12 @@
-import React, {useEffect, useRef, useState} from "react";
-import {AbsoluteFill, continueRender, delayRender} from "remotion";
+import React from "react";
+import {AbsoluteFill} from "remotion";
 import {DiagramCanvas} from "../../diagram/components/DiagramCanvas";
-import {layoutDiagram} from "../../diagram/layout/elkLayout";
-import {ragDiagramSpec} from "../../diagram/samples/rag";
+import {ragLayout} from "../../diagram/generated/ragLayout";
 import type {DiagramLayout} from "../../diagram/types";
 import {diagramTheme} from "../../diagram/theme/diagramTheme";
 
 export const ArchitectureDiagramStill: React.FC = () => {
-  const [layout, setLayout] = useState<DiagramLayout | null>(null);
-  const handle = useRef(delayRender("Compute ELK architecture layout"));
-
-  useEffect(() => {
-    let active = true;
-    layoutDiagram(ragDiagramSpec)
-      .then((result) => {
-        if (!active) return;
-        setLayout(result);
-        continueRender(handle.current);
-      })
-      .catch((error) => {
-        console.error(error);
-        continueRender(handle.current);
-      });
-    return () => {
-      active = false;
-    };
-  }, []);
+  const layout = ragLayout as unknown as DiagramLayout;
 
   return (
     <AbsoluteFill
@@ -52,7 +33,7 @@ export const ArchitectureDiagramStill: React.FC = () => {
           overflow: "hidden",
         }}
       >
-        {layout ? <DiagramCanvas layout={layout} width={940} height={1280} /> : null}
+        <DiagramCanvas layout={layout} width={940} height={1280} />
       </div>
 
       <div style={{display: "flex", gap: 18, marginTop: 34, alignItems: "center"}}>
