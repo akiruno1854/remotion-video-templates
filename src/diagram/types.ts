@@ -2,11 +2,13 @@ export type DiagramNodeType =
   | "actor"
   | "server"
   | "service"
+  | "compute"
   | "database"
   | "queue"
   | "cache"
   | "model"
   | "storage"
+  | "document"
   | "cpu"
   | "gpu"
   | "gateway";
@@ -26,6 +28,7 @@ export type DiagramEdge = {
 };
 
 export type DiagramSpec = {
+  id?: string;
   title: string;
   subtitle?: string;
   direction?: "RIGHT" | "DOWN";
