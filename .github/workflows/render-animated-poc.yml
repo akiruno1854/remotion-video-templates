@@ -41,7 +41,7 @@ jobs:
 
       - name: Generate Japanese narration
         env:
-          PIPER_PLUS_MODEL: css10
+          PIPER_PLUS_MODEL: css10-ja-6lang-fp16.onnx
         run: python scripts/generate-guide-audio.py
 
       - name: Generate ELK layouts
