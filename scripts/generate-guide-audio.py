@@ -4,6 +4,7 @@ import json
 import os
 import struct
 import subprocess
+import sys
 import tempfile
 import wave
 
@@ -12,7 +13,6 @@ SPEC = os.path.join(ROOT, "narration", "aws-serverless.json")
 OUT_DIR = os.path.join(ROOT, "public", "audio")
 OUT = os.path.join(OUT_DIR, "aws-serverless-guide.wav")
 RATE = 22050
-PIPER_BIN = os.environ.get("PIPER_PLUS_BIN", "piper-plus")
 MODEL = os.environ.get("PIPER_PLUS_MODEL", "tsukuyomi")
 
 with open(SPEC, "r", encoding="utf-8") as f:
@@ -26,7 +26,7 @@ with tempfile.TemporaryDirectory() as tmp:
     for index, segment in enumerate(spec["segments"], start=1):
         wav_path = os.path.join(tmp, f"segment-{index}.wav")
         subprocess.run([
-            PIPER_BIN,
+            sys.executable, "-m", "piper_plus",
             "--model", MODEL,
             "--text", segment["ja"],
             "--noise-scale", "0.5",
