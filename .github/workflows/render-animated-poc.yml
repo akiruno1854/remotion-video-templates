@@ -33,6 +33,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install "git+https://github.com/ayutaz/piper-plus.git@dev#subdirectory=src/python_run"
+          python - <<'PY'
+          import nltk
+          nltk.download('averaged_perceptron_tagger_eng')
+          nltk.download('cmudict')
+          PY
           echo "PIPER_PLUS_BIN=piper-plus" >> "$GITHUB_ENV"
 
       - name: Download Japanese voice model
