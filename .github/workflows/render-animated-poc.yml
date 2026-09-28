@@ -37,7 +37,8 @@ jobs:
           echo "PIPER_PLUS_BIN=$PWD/piper/bin/piper" >> "$GITHUB_ENV"
 
       - name: Download Japanese voice model
-        run: "$PIPER_PLUS_BIN" --download-model tsukuyomi
+        run: |
+          "$PIPER_PLUS_BIN" --download-model tsukuyomi
 
       - name: Generate Japanese narration
         env:
