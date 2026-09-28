@@ -29,17 +29,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install piper-plus binary
+      - name: Install current piper-plus Python runtime
         run: |
-          curl -L -o piper.tar.gz https://github.com/ayutaz/piper-plus/releases/download/v1.13.0/piper-linux-x64.tar.gz
-          tar xzf piper.tar.gz
-          chmod +x piper/bin/piper
-          echo "PIPER_PLUS_BIN=$PWD/piper/bin/piper" >> "$GITHUB_ENV"
-          echo "LD_LIBRARY_PATH=$PWD/piper/lib:${LD_LIBRARY_PATH:-}" >> "$GITHUB_ENV"
+          python -m pip install --upgrade pip
+          python -m pip install "git+https://github.com/ayutaz/piper-plus.git@dev#subdirectory=src/python_run"
+          echo "PIPER_PLUS_BIN=piper-plus" >> "$GITHUB_ENV"
 
       - name: Download Japanese voice model
         run: |
-          "$PIPER_PLUS_BIN" --download-model css10
+          piper-plus --download-model css10
 
       - name: Generate Japanese narration
         env:
