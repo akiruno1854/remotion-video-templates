@@ -12,6 +12,7 @@ import {ArchitectureDiagramShort,ragArchitectureSample} from "./templates/Archit
 import {ArchitectureDiagramStill} from "./templates/ArchitectureDiagramStill/ArchitectureDiagramStill";
 import {AwsServerlessStill} from "./templates/ArchitectureDiagramStill/AwsServerlessStill";
 import {RagSystemStill} from "./templates/ArchitectureDiagramStill/RagSystemStill";
+import {AwsServerlessAnimated} from "./templates/ArchitectureDiagramAnimated/AwsServerlessAnimated";
 import {TerminalPanelStill,DirectoryTreeStill,GitTreeStill,MetricDashboardStill,ComparisonTableStill} from "./scenes/SceneLibrary";
 
 export const RemotionRoot: React.FC = () => (
@@ -24,6 +25,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="CaptionedShort" component={CaptionedShort} schema={captionedShortSchema} defaultProps={captionedShortDefaultProps} calculateMetadata={captionedShortCalculateMetadata} durationInFrames={300} fps={30} width={1080} height={1920} />
     <Composition id="VllmDiagramShort" component={VllmDiagramShort} durationInFrames={1800} fps={30} width={1080} height={1920} />
     <Composition id="ArchitectureDiagramShort" component={ArchitectureDiagramShort} defaultProps={ragArchitectureSample} durationInFrames={1800} fps={30} width={1080} height={1920} />
+    <Composition id="AwsServerlessAnimated" component={AwsServerlessAnimated} durationInFrames={1080} fps={30} width={1080} height={1920} />
     <Composition id="ArchitectureDiagramStill" component={ArchitectureDiagramStill} durationInFrames={1} fps={30} width={1080} height={1920} />
     <Composition id="AwsServerlessStill" component={AwsServerlessStill} durationInFrames={1} fps={30} width={1080} height={1920} />
     <Composition id="RagSystemStill" component={RagSystemStill} durationInFrames={1} fps={30} width={1080} height={1920} />
