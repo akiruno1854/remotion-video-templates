@@ -1,0 +1,18 @@
+export const diagramTheme = {
+  background: "#06111F",
+  panel: "#0B1B2B",
+  panelMuted: "#0A1624",
+  border: "#284763",
+  text: "#F8FAFC",
+  mutedText: "#9FB3C8",
+  accent: "#4FD1C5",
+  accentStrong: "#22D3EE",
+  edge: "#7DD3FC",
+  edgeMuted: "#45647F",
+  shadow: "0 18px 48px rgba(0,0,0,0.28)",
+  nodeWidth: 240,
+  nodeHeight: 116,
+  nodeGap: 64,
+  layerGap: 110,
+  cornerRadius: 22,
+} as const;
