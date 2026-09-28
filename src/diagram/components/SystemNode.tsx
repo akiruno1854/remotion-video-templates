@@ -7,11 +7,13 @@ const typeLabel: Record<string, string> = {
   actor: "USER",
   server: "SERVER",
   service: "SERVICE",
+  compute: "COMPUTE",
   database: "DATA",
   queue: "QUEUE",
   cache: "CACHE",
   model: "MODEL",
   storage: "STORAGE",
+  document: "DOCUMENT",
   cpu: "CPU",
   gpu: "GPU",
   gateway: "GATEWAY",
@@ -25,6 +27,9 @@ const badgeText = (type: string) => {
     case "queue": return "Q";
     case "cache": return "C";
     case "gateway": return "GW";
+    case "compute": return "λ";
+    case "document": return "DOC";
+    case "storage": return "ST";
     case "gpu": return "GPU";
     case "cpu": return "CPU";
     default: return "SVC";
@@ -40,6 +45,15 @@ const paletteFor = (type: string) => {
   }
   if (type === "actor") {
     return {background: diagramTheme.nodeActor, accent: diagramTheme.edgeStrong};
+  }
+  if (type === "compute") {
+    return {background: diagramTheme.nodeService, accent: "#F59E0B"};
+  }
+  if (type === "gateway") {
+    return {background: diagramTheme.nodeService, accent: "#A78BFA"};
+  }
+  if (type === "document") {
+    return {background: diagramTheme.nodeService, accent: "#60A5FA"};
   }
   return {background: diagramTheme.nodeService, accent: diagramTheme.accent};
 };
