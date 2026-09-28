@@ -22,14 +22,23 @@ jobs:
           node-version: 20
           cache: npm
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
       - name: Install dependencies
         run: npm install
 
-      - name: Install guide voice generator
-        run: sudo apt-get update && sudo apt-get install -y espeak
+      - name: Install piper-plus
+        run: python -m pip install --upgrade pip piper-plus
 
-      - name: Generate guide narration
-        run: python3 scripts/generate-guide-audio.py
+      - name: Download Japanese voice model
+        run: piper-plus --download-model tsukuyomi
+
+      - name: Generate Japanese narration
+        env:
+          PIPER_PLUS_MODEL: tsukuyomi
+        run: python scripts/generate-guide-audio.py
 
       - name: Generate ELK layouts
         run: npm run diagram:layout
@@ -40,11 +49,11 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
-      - name: Render animated serverless PoC with narration
-        run: npx remotion render AwsServerlessAnimated out/aws-serverless-animated-with-audio.mp4
+      - name: Render animated serverless PoC with Japanese narration
+        run: npx remotion render AwsServerlessAnimated out/aws-serverless-animated-ja.mp4
 
       - name: Upload video artifact
         uses: actions/upload-artifact@v4
         with:
-          name: aws-serverless-animated-with-audio
-          path: out/aws-serverless-animated-with-audio.mp4
+          name: aws-serverless-animated-ja
+          path: out/aws-serverless-animated-ja.mp4
