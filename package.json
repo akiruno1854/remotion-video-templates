@@ -10,6 +10,7 @@
     "render": "remotion render",
     "still": "remotion still",
     "compositions": "remotion compositions",
+    "diagram:layout": "node scripts/generate-diagram-layout.mjs",
     "upgrade": "remotion upgrade",
     "typecheck": "tsc --noEmit"
   },
