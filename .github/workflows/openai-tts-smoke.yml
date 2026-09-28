@@ -15,16 +15,16 @@ jobs:
 
       - name: Check OpenAI API key is configured
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || secrets.OPENAI }}
         run: |
           if [ -z "$OPENAI_API_KEY" ]; then
-            echo "OPENAI_API_KEY is not configured"
+            echo "Neither OPENAI_API_KEY nor OPENAI is configured"
             exit 1
           fi
 
       - name: Generate Japanese TTS sample
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || secrets.OPENAI }}
         run: |
           python3 - <<'PY'
           import json, os, urllib.request
