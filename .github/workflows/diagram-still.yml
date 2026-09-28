@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Generate ELK layout
+      - name: Generate ELK layouts
         run: npm run diagram:layout
 
       - name: Ensure browser
@@ -28,11 +28,20 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
-      - name: Render architecture still
-        run: npx remotion still ArchitectureDiagramStill out/rag-diagram.png
+      - name: Render RAG basic still
+        run: npx remotion still ArchitectureDiagramStill out/rag-basic.png
 
-      - name: Upload diagram artifact
+      - name: Render AWS serverless still
+        run: npx remotion still AwsServerlessStill out/aws-serverless.png
+
+      - name: Render RAG system still
+        run: npx remotion still RagSystemStill out/rag-system.png
+
+      - name: Upload diagram artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: rag-diagram-still
-          path: out/rag-diagram.png
+          name: diagram-stills
+          path: |
+            out/rag-basic.png
+            out/aws-serverless.png
+            out/rag-system.png
