@@ -30,8 +30,8 @@ with tempfile.TemporaryDirectory() as tmp:
     narration_wav = os.path.join(tmp, "continuous-narration.wav")
     subprocess.run([
         PIPER_BIN,
+        full_text,
         "--model", MODEL,
-        "--text", full_text,
         "--noise-scale", "0.45",
         "--length-scale", "1.08",
         "--output_file", narration_wav,
