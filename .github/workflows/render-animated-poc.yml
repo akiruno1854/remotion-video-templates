@@ -31,11 +31,11 @@ jobs:
 
       - name: Install piper-plus binary
         run: |
-          curl -L -o piper.tar.gz https://github.com/ayutaz/piper-plus/releases/latest/download/piper-plus-cpp-linux-x64.tar.gz
+          curl -L -o piper.tar.gz https://github.com/ayutaz/piper-plus/releases/download/v1.13.0/piper-linux-x64.tar.gz
           tar xzf piper.tar.gz
-          chmod +x piper-plus/bin/piper-plus
-          echo "PIPER_PLUS_BIN=$PWD/piper-plus/bin/piper-plus" >> "$GITHUB_ENV"
-          echo "LD_LIBRARY_PATH=$PWD/piper-plus/lib:${LD_LIBRARY_PATH:-}" >> "$GITHUB_ENV"
+          chmod +x piper/bin/piper
+          echo "PIPER_PLUS_BIN=$PWD/piper/bin/piper" >> "$GITHUB_ENV"
+          echo "LD_LIBRARY_PATH=$PWD/piper/lib:${LD_LIBRARY_PATH:-}" >> "$GITHUB_ENV"
 
       - name: Download Japanese voice model
         run: |
