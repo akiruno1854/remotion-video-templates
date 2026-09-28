@@ -47,6 +47,7 @@ import {
   ArchitectureDiagramShort,
   ragArchitectureSample,
 } from "./templates/ArchitectureDiagramShort/ArchitectureDiagramShort";
+import {ArchitectureDiagramStill} from "./templates/ArchitectureDiagramStill/ArchitectureDiagramStill";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -136,6 +137,15 @@ export const RemotionRoot: React.FC = () => {
         component={ArchitectureDiagramShort}
         defaultProps={ragArchitectureSample}
         durationInFrames={1800}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+
+      <Composition
+        id="ArchitectureDiagramStill"
+        component={ArchitectureDiagramStill}
+        durationInFrames={1}
         fps={30}
         width={1080}
         height={1920}
