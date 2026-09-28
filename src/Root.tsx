@@ -43,6 +43,10 @@ import {
   promoTemplateCalculateMetadata,
 } from "./templates/PromoTemplate/PromoTemplate";
 import {VllmDiagramShort} from "./templates/VllmDiagramShort/VllmDiagramShort";
+import {
+  ArchitectureDiagramShort,
+  ragArchitectureSample,
+} from "./templates/ArchitectureDiagramShort/ArchitectureDiagramShort";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -121,6 +125,16 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="VllmDiagramShort"
         component={VllmDiagramShort}
+        durationInFrames={1800}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+
+      <Composition
+        id="ArchitectureDiagramShort"
+        component={ArchitectureDiagramShort}
+        defaultProps={ragArchitectureSample}
         durationInFrames={1800}
         fps={30}
         width={1080}
