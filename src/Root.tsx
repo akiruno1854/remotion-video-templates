@@ -42,12 +42,8 @@ import {
   promoTemplateDefaultProps,
   promoTemplateCalculateMetadata,
 } from "./templates/PromoTemplate/PromoTemplate";
+import {VllmDiagramShort} from "./templates/VllmDiagramShort/VllmDiagramShort";
 
-// Every composition is declared here. The `id` is what the CLI renders:
-//   npx remotion render <id> out/<id>.mp4
-// Compositions with a `calculateMetadata` derive their real duration from the
-// props at render time; the `durationInFrames` below is just the initial value
-// Studio shows before that runs.
 export const RemotionRoot: React.FC = () => {
   return (
     <>
@@ -117,6 +113,15 @@ export const RemotionRoot: React.FC = () => {
         defaultProps={captionedShortDefaultProps}
         calculateMetadata={captionedShortCalculateMetadata}
         durationInFrames={300}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+
+      <Composition
+        id="VllmDiagramShort"
+        component={VllmDiagramShort}
+        durationInFrames={1800}
         fps={30}
         width={1080}
         height={1920}
