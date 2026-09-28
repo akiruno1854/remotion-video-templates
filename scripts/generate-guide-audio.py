@@ -12,7 +12,7 @@ SPEC = os.path.join(ROOT, "narration", "aws-serverless.json")
 OUT_DIR = os.path.join(ROOT, "public", "audio")
 OUT = os.path.join(OUT_DIR, "aws-serverless-guide.wav")
 RATE = 22050
-PIPER_BIN = os.environ.get("PIPER_PLUS_BIN", os.path.join(ROOT, "piper", "bin", "piper"))
+PIPER_BIN = os.environ.get("PIPER_PLUS_BIN", os.path.join(ROOT, "piper-plus", "bin", "piper-plus"))
 MODEL = os.environ.get("PIPER_PLUS_MODEL", "tsukuyomi")
 
 with open(SPEC, "r", encoding="utf-8") as f:
