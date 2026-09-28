@@ -7,6 +7,8 @@ on:
     paths:
       - "src/templates/ArchitectureDiagramAnimated/**"
       - "src/Root.tsx"
+      - "narration/**"
+      - "scripts/generate-guide-audio.py"
       - ".github/workflows/render-animated-poc.yml"
 
 jobs:
@@ -23,6 +25,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install guide voice generator
+        run: sudo apt-get update && sudo apt-get install -y espeak
+
+      - name: Generate guide narration
+        run: python3 scripts/generate-guide-audio.py
+
       - name: Generate ELK layouts
         run: npm run diagram:layout
 
@@ -32,11 +40,11 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
-      - name: Render animated serverless PoC
-        run: npx remotion render AwsServerlessAnimated out/aws-serverless-animated.mp4
+      - name: Render animated serverless PoC with narration
+        run: npx remotion render AwsServerlessAnimated out/aws-serverless-animated-with-audio.mp4
 
       - name: Upload video artifact
         uses: actions/upload-artifact@v4
         with:
-          name: aws-serverless-animated
-          path: out/aws-serverless-animated.mp4
+          name: aws-serverless-animated-with-audio
+          path: out/aws-serverless-animated-with-audio.mp4

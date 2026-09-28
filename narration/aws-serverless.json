@@ -1,0 +1,38 @@
+{
+  "id": "aws-serverless",
+  "language": "ja-JP",
+  "guideVoiceLanguage": "en-US",
+  "durationSec": 36,
+  "segments": [
+    {
+      "startSec": 0,
+      "endSec": 6,
+      "ja": "まず、ユーザーからのHTTPリクエストをAPI Gatewayが受け取ります。",
+      "guideEn": "First, API Gateway receives the HTTP request."
+    },
+    {
+      "startSec": 6,
+      "endSec": 12,
+      "ja": "次に、API GatewayがLambda関数を呼び出します。",
+      "guideEn": "Next, API Gateway invokes the Lambda function."
+    },
+    {
+      "startSec": 12,
+      "endSec": 19,
+      "ja": "Lambdaでは、リクエストに必要なビジネスロジックを実行します。",
+      "guideEn": "Lambda runs the business logic for the request."
+    },
+    {
+      "startSec": 19,
+      "endSec": 26,
+      "ja": "必要なデータはDynamoDBから取得したり、DynamoDBへ保存したりします。",
+      "guideEn": "Lambda reads from or writes to DynamoDB."
+    },
+    {
+      "startSec": 26,
+      "endSec": 36,
+      "ja": "これが、API Gateway、Lambda、DynamoDBを使った基本的なサーバーレスAPIの流れです。",
+      "guideEn": "This is the basic serverless API flow: API Gateway, Lambda, and DynamoDB."
+    }
+  ]
+}
