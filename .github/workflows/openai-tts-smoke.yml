@@ -1,0 +1,63 @@
+name: OpenAI TTS Smoke Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/openai-tts-smoke.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check OpenAI API key is configured
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "OPENAI_API_KEY is not configured"
+            exit 1
+          fi
+
+      - name: Generate Japanese TTS sample
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request
+
+          payload = {
+              "model": "gpt-4o-mini-tts",
+              "voice": "cedar",
+              "input": "これはOpenAIの音声APIの動作確認です。API Gateway、Lambda、DynamoDBを使ったサーバーレス構成を解説します。",
+              "instructions": "落ち着いた大人の日本語ナレーターとして、技術解説向けに明瞭で自然に、やや低めでゆっくり話してください。",
+              "response_format": "mp3"
+          }
+          req = urllib.request.Request(
+              "https://api.openai.com/v1/audio/speech",
+              data=json.dumps(payload).encode("utf-8"),
+              headers={
+                  "Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}",
+                  "Content-Type": "application/json",
+              },
+              method="POST",
+          )
+          with urllib.request.urlopen(req, timeout=120) as r:
+              audio = r.read()
+              print("status:", r.status)
+              print("content-type:", r.headers.get("content-type"))
+              print("bytes:", len(audio))
+          if len(audio) < 1000:
+              raise RuntimeError("TTS output was unexpectedly small")
+          with open("openai-tts-smoke.mp3", "wb") as f:
+              f.write(audio)
+          PY
+
+      - name: Upload TTS sample
+        uses: actions/upload-artifact@v4
+        with:
+          name: openai-tts-smoke
+          path: openai-tts-smoke.mp3
