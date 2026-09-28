@@ -38,12 +38,14 @@ export const layoutDiagram = async (spec: DiagramSpec): Promise<DiagramLayout> =
     })),
   };
 
-  const laidOut = await elk.layout(graph);
+  // ELK augments the input graph with geometry (x/y/width/height and routed edge sections).
+  // Its generic TS return type preserves the narrower input edge shape, so normalize here.
+  const laidOut: any = await elk.layout(graph as any);
 
   const nodeById = new Map(spec.nodes.map((n) => [n.id, n]));
   const edgeById = new Map(spec.edges.map((e) => [e.id, e]));
 
-  const nodes: LayoutNode[] = (laidOut.children ?? []).map((node) => {
+  const nodes: LayoutNode[] = (laidOut.children ?? []).map((node: any) => {
     const original = nodeById.get(node.id);
     if (!original) {
       throw new Error(`Unknown node returned by ELK: ${node.id}`);
@@ -57,18 +59,14 @@ export const layoutDiagram = async (spec: DiagramSpec): Promise<DiagramLayout> =
     };
   });
 
-  const edges: LayoutEdge[] = (laidOut.edges ?? []).map((edge) => {
+  const edges: LayoutEdge[] = (laidOut.edges ?? []).map((edge: any) => {
     const original = edgeById.get(edge.id);
     if (!original) {
       throw new Error(`Unknown edge returned by ELK: ${edge.id}`);
     }
     const section = edge.sections?.[0];
     const points: Point[] = section
-      ? [
-          section.startPoint,
-          ...(section.bendPoints ?? []),
-          section.endPoint,
-        ].map((p) => ({x: p.x, y: p.y}))
+      ? [section.startPoint, ...(section.bendPoints ?? []), section.endPoint].map((p: any) => ({x: p.x, y: p.y}))
       : [];
 
     return {...original, points};
