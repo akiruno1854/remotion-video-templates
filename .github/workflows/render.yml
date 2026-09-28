@@ -6,7 +6,7 @@ on:
       composition:
         description: Composition id to render
         required: false
-        default: VllmDiagramShort
+        default: ArchitectureDiagramShort
   push:
     branches: [main]
 
@@ -31,7 +31,7 @@ jobs:
         run: npm run typecheck
 
       - name: Render composition
-        run: npx remotion render ${{ github.event.inputs.composition || 'VllmDiagramShort' }} out/video.mp4
+        run: npx remotion render ${{ github.event.inputs.composition || 'ArchitectureDiagramShort' }} out/video.mp4
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
