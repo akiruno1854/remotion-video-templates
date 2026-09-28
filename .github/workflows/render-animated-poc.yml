@@ -39,11 +39,11 @@ jobs:
 
       - name: Download Japanese voice model
         run: |
-          "$PIPER_PLUS_BIN" --download-model tsukuyomi
+          "$PIPER_PLUS_BIN" --download-model css10
 
       - name: Generate Japanese narration
         env:
-          PIPER_PLUS_MODEL: tsukuyomi
+          PIPER_PLUS_MODEL: css10
         run: python scripts/generate-guide-audio.py
 
       - name: Generate ELK layouts
@@ -56,10 +56,10 @@ jobs:
         run: npm run typecheck
 
       - name: Render animated serverless PoC with Japanese narration
-        run: npx remotion render AwsServerlessAnimated out/aws-serverless-animated-ja.mp4
+        run: npx remotion render AwsServerlessAnimated out/aws-serverless-animated-ja-css10.mp4
 
       - name: Upload video artifact
         uses: actions/upload-artifact@v4
         with:
-          name: aws-serverless-animated-ja
-          path: out/aws-serverless-animated-ja.mp4
+          name: aws-serverless-animated-ja-css10
+          path: out/aws-serverless-animated-ja-css10.mp4
