@@ -33,7 +33,7 @@ jobs:
         run: python -m pip install --upgrade pip piper-plus
 
       - name: Download Japanese voice model
-        run: piper-plus --download-model tsukuyomi
+        run: python -m piper_plus --download-model tsukuyomi
 
       - name: Generate Japanese narration
         env:
